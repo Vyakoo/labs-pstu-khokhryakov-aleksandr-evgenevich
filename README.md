@@ -1,14 +1,25 @@
-<p align="center">
-  <img src="https://img.ixbt.site/live/images/original/38/33/22/2026/02/10/bbef87be46.png" alt="Space Black Hole Banner" width="100%" style="border-radius: 12px; max-height: 320px; object-fit: cover;">
-</p>
+
+<div style="
+    background-image: url('https://img.ixbt.site/live/images/original/38/33/22/2026/02/10/bbef87be46.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 320px;
+    max-height: 320px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    color: #ffffff;
+    box-sizing: border-box;
+">
+    <!-- Удалите или замените этот текст на свой -->
+    <h2 style="margin: 0; font-family: sans-serif; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">Ваш идеальный заголовок</h2>
+</div>
 
 <h1 align="center">Labs_PSTU</h1>
-
-<p align="center">
-  <img src="https://shields.io" alt="PSTU Badge">
-  <img src="https://shields.io" alt="Course Badge">
-  <img src="https://shields.io" alt="Linux Badge">
-</p>
 
 ---
 
