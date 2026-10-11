@@ -1,14 +1,6 @@
-<p align="center">
-  <img src="https://img.ixbt.site/live/images/original/38/33/22/2026/02/10/bbef87be46.png" alt="Space Black Hole Banner" width="100%" style="border-radius: 12px; max-height: 320px; object-fit: cover;">
-</p>
+
 
 <h1 align="center">Labs_PSTU</h1>
-
-<p align="center">
-  <img src="https://shields.io" alt="PSTU Badge">
-  <img src="https://shields.io" alt="Course Badge">
-  <img src="https://shields.io" alt="Linux Badge">
-</p>
 
 ---
 
