@@ -21,9 +21,9 @@ int main() {
     }
 
     // Вывод результата
-    std::cout << "Вставка: ";
-    for (int i = 0; i < N; ++i) std::cout << A[i] << " ";
-    std::cout << "\n";
+    cout << "Вставка: ";
+    for (int i = 0; i < N; ++i) cout << A[i] << " ";
+    cout << endl;
 
     return 0;
 }
