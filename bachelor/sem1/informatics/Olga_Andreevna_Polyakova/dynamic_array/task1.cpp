@@ -13,10 +13,9 @@ void resizeArray(int*& arr, int oldSize, int newSize) {
         newArr[i] = arr[i];
     }
 
-    // 4. Удаляем старый массив из памяти
     delete[] arr;
 
-    // 5. Перенаправляем указатель на новый массив
+   
     arr = newArr;
 }
 
