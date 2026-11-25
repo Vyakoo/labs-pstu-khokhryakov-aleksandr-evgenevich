@@ -2,93 +2,85 @@
 
 using namespace std;
 
+// Вывод массива по кольцу (влево от K)
 void printRing(int a[], int n, int k) {
     if (n <= 0) {
         cout << "Кольцо пустое." << endl;
         return;
     }
 
-    int current = ((k % n) + n) % n;
+    // Если K больше размера массива (после удаления элементов), берем корректный индекс
+    int current = k % n; 
 
-    for (int step = 0; step < n; ++step) {
-        cout << a[current];
-        if (step < n - 1) {
-            cout << " -> ";
+    for (int i = 0; i < n; i++) {
+        cout << a[current] << " ";
+        
+        current--;          // Двигаемся влево
+        if (current < 0) {  // Если вышли за левый край — прыгаем в конец
+            current = n - 1;
         }
-        current = (current - 1 + n) % n;
     }
     cout << endl;
 }
 
+// Сортировка по убыванию (пузырьком)
 void sortDescending(int a[], int n) {
-    for (int i = 0; i < n - 1; ++i) {
-        for (int j = 0; j < n - i - 1; ++j) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - 1; j++) {
             if (a[j] < a[j + 1]) {
-                int temp = a[j];
-                a[j] = a[j + 1];
-                a[j + 1] = temp;
+                swap(a[j], a[j + 1]); // Встроенная функция обмена значений
             }
         }
     }
 }
 
+// Удаление нечётных элементов
 void removeOdd(int a[], int& n) {
-    int newSize = 0;
-    for (int i = 0; i < n; ++i) {
+    int j = 0; // Индекс для записи чётных чисел
+    for (int i = 0; i < n; i++) {
         if (a[i] % 2 == 0) {
-            a[newSize] = a[i];
-            newSize++;
+            a[j] = a[i];
+            j++;
         }
     }
-    n = newSize;
+    n = j; // Новый размер массива
 }
 
 int main() {
     setlocale(LC_ALL, "Russian");
 
-    const int N = 100;
-    int a[N];
-    int n;
+    int a[100];
+    int n, k;
 
-    cout << "Введите реальную длину массива (не более " << N << "): ";
+    cout << "Введите длину массива (от 1 до 100): ";
     cin >> n;
-
-    if (n <= 0 || n > N) {
-        cout << "Ошибка: длина должна быть от 1 до " << N << "." << endl;
+    if (n <= 0 || n > 100) {
+        cout << "Ошибка длины!" << endl;
         return 0;
     }
 
-    cout << "Введите " << n << " элементов массива: ";
-    for (int i = 0; i < n; ++i) {
+    cout << "Введите элементы: ";
+    for (int i = 0; i < n; i++) {
         cin >> a[i];
     }
 
-    int k;
-    cout << "Введите индекс K (от 0 до " << n - 1 << "): ";
+    cout << "Введите индекс K: ";
     cin >> k;
 
-    cout << "\nПросмотр кольца от K до K+1: ";
+    cout << "\nКольцо от K до K+1: ";
     printRing(a, n, k);
 
     sortDescending(a, n);
-    cout << "После сортировки по убыванию: ";
-    for (int i = 0; i < n; ++i) {
-        cout << a[i] << " ";
-    }
+    cout << "По убыванию: ";
+    for (int i = 0; i < n; i++) cout << a[i] << " ";
     cout << endl;
 
     removeOdd(a, n);
-    cout << "После удаления нечетных элементов: ";
-    if (n == 0) {
-        cout << "элементов не осталось";
-    } else {
-        for (int i = 0; i < n; ++i) {
-            cout << a[i] << " ";
-        }
-    }
+    cout << "Без нечётных: ";
+    for (int i = 0; i < n; i++) cout << a[i] << " ";
     cout << endl;
 
-    cout << "Итоговый просмотр кольца от K до K+1: ";
+    cout << "Итоговое кольцо: ";
     printRing(a, n, k);
 
     return 0;
