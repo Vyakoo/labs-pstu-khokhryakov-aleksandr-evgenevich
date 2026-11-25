@@ -2,73 +2,86 @@
 
 using namespace std;
 
-
-bool hasElement(const int* arr, int offset, int len, int target) {
-    for (int i = 0; i < len; ++i) {
-        if (arr[offset + i] == target) return true;
+// Поиск числа в части массива
+bool contains(int arr[], int start, int len, int target) {
+    for (int i = 0; i < len; i++) {
+        if (arr[start + i] == target) {
+            return true;
+        }
     }
     return false;
 }
 
+// Восстановление матрицы из одномерного массива
+void restoreMatrix(int flat[], int** matrix, int N, int M) {
+    int half = N * M; // Начало столбцов в общем массиве
 
-void restoreMatrix(const int* flat, int** matrix, int rows, int cols) {
-    int colsStart = rows * cols; 
-    
+    // Расставляем строки по первому столбцу
+    for (int i = 0; i < N; i++) {
+        int needed = flat[half + i];
 
-    for (int i = 0; i < rows; ++i) {
-        int target = flat[colsStart + i];
-        for (int r = 0; r < rows; ++r) {
-            if (hasElement(flat, r * cols, cols, target)) {
-                for (int j = 0; j < cols; ++j) {
-                    matrix[i][j] = flat[r * cols + j];
+        for (int r = 0; r < N; r++) {
+            if (contains(flat, r * M, M, needed)) {
+                for (int j = 0; j < M; j++) {
+                    matrix[i][j] = flat[r * M + j];
                 }
                 break;
             }
         }
     }
 
-   
-    for (int j = 0; j < cols; ++j) {
-        int target = matrix[0][j];
-        for (int c = 0; c < cols; ++c) {
-            if (hasElement(flat, colsStart + c * rows, rows, target)) {
-                for (int i = 0; i < rows; ++i) {
-                    matrix[i][j] = flat[colsStart + c * rows + i];
+    // Расставляем столбцы по первой строке
+    for (int j = 0; j < M; j++) {
+        int needed = matrix[0][j];
+
+        for (int c = 0; c < M; c++) {
+            if (contains(flat, half + c * N, N, needed)) {
+                for (int i = 0; i < N; i++) {
+                    matrix[i][j] = flat[half + c * N + i];
                 }
                 break;
             }
         }
-    }
-}
-
-void printMatrix(int** matrix, int rows, int cols) {
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) cout << matrix[i][j] << "\t";
-        cout << "\n";
     }
 }
 
 int main() {
-    int rows, cols;
-    cout << "Введите N и M: ";
-    cin >> rows >> cols;
+    setlocale(LC_ALL, "Russian");
 
-    int* flat = new int[2 * rows * cols];
-    cout << "Введите элементы одномерного массива:\n";
-    for (int i = 0; i < 2 * rows * cols; ++i) cin >> flat[i];
+    int N, M;
+    cout << "Введите размерность матрицы N и M: ";
+    cin >> N >> M;
 
-    int** matrix = new int*[rows];
-    for (int i = 0; i < rows; ++i) matrix[i] = new int[cols];
+    int total = 2 * N * M;
+    int* flat = new int[total];
 
-    restoreMatrix(flat, matrix, rows, cols);
-    
-    cout << "Результат:\n";
-    printMatrix(matrix, rows, cols);
+    cout << "Введите " << total << " элементов одномерного массива:\n";
+    for (int i = 0; i < total; i++) {
+        cin >> flat[i];
+    }
 
+    // Выделяем память под матрицу
+    int** matrix = new int*[N];
+    for (int i = 0; i < N; i++) {
+        matrix[i] = new int[M];
+    }
+
+    restoreMatrix(flat, matrix, N, M);
+
+    cout << "\nВосстановленная матрица:\n";
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            cout << matrix[i][j] << "\t";
+        }
+        cout << "\n";
+    }
+
+    // Освобождаем память
     delete[] flat;
-    for (int i = 0; i < rows; ++i) delete[] matrix[i];
+    for (int i = 0; i < N; i++) {
+        delete[] matrix[i];
+    }
     delete[] matrix;
+
     return 0;
 }
-
-
